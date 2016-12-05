@@ -1,0 +1,33 @@
+<div id="add-city">
+  <header>Enter city, zip code, or airport location</header>
+  <ul id="autocomplete-input">
+    <li class="input">
+      {{input value=searchTerm}}
+    </li>
+    <li class="cancel">
+      {{#link-to 'index'}}
+        Cancel
+      {{/link-to}}
+    </li>
+  </ul>
+  
+  <ul id="autocomplete-results">
+  {{#if isNewSearch}}
+    <div class="new-search-prompt">Please type to find a location.</div>
+  {{else}}
+    {{#each city in controller}}
+      <li>
+        <a {{action 'addCity' city}}>
+          {{city.formatted_address}}
+        </a>
+      </li>
+    {{else}}
+      {{#if isEmptySearch}}
+        <div class="no-results-prompt">No results found, try another city.</div>
+      {{else}}
+        <div class="no-results-prompt">Keep typing…</div>
+      {{/if}}
+    {{/each}}
+  {{/if}}
+  </ul>
+  </div>

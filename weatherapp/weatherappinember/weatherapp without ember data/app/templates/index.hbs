@@ -1,0 +1,35 @@
+<div id="cities-list" {{bind-attr class="isEditing"}}>
+  <ul>
+    {{#each city in model}}
+    <li {{bind-attr class="city.isNight city.isCloudy city.isDay city.isCurrentLocation"}}>
+      {{#link-to 'city' city.id}}
+        <ul>
+          <li class="city-info">
+            <div class="time">{{city.listDisplayTime}}</div>
+            <div class="city-name">{{city.name}}</div>
+          </li>
+          <li class="temperature">{{city.currentCondition.displayTemperature}}</li>
+        </ul>
+      {{/link-to}}
+      <a class="delete" {{action 'delete' city}}>—</a>
+    </li>
+    {{/each}}
+  </ul>
+</div>
+
+<nav>
+  {{#link-to 'new' class="add-city-button"}}
+    +
+  {{/link-to}}
+  {{#if isEditing}}
+    <a {{action 'endEditing'}} class="done-list-button">Done</a>
+  {{else}}
+    <a {{action 'startEditing'}} class="edit-list-button">Edit</a>
+  {{/if}}
+  <a class="attribution" href="http://forecast.io/" target="_blank">Powered by Forecast</a>
+  <div {{bind-attr class=":celsius-or-fahrenheit isFahrenheit isCelsius"}}>
+    <a {{action 'toggleUnits'}}>
+      <span class="celsius">˚C</span> ⁄ <span class="fahrenheit">˚F</span>
+    </a>
+  </div>
+</nav>

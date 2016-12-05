@@ -1,0 +1,157 @@
+<div id="selected-city" {{bind-attr class="isNight isCloudy isDay isCurrentLocation"}}>
+  <section id="city-header">
+    <h2>{{name}}</h2>
+    <h4>{{hourlyConditions.0.summary}}</h4>
+    <h1>{{hourlyConditions.0.displayTemperature}}</h1>
+  </section>
+  <section id="today">
+    <ul class="today-overview">
+      <li>{{currentCondition.dayName}}</li>
+      <li>{{currentCondition.localDayName}}</li>
+      <li>{{dailyConditions.0.displayTemperatureMax}}</li>
+      <li>{{dailyConditions.0.displayTemperatureMin}}</li>
+    </ul>
+    <div class="today-hourly-list-container">
+      <ul class="today-hourly-list" {{bind-attr style=widthOfHourlyForecasts}}>
+          {{#each forecast in hourlyConditions}}
+            <li>
+              <ul>
+                <li>{{forecast.displayTimeShort}}</li>
+                <li><img {{bind-attr src=forecast.iconPath}}></li>
+                <li>{{forecast.displayTemperature}}</li>
+              </ul>
+            </li>
+          {{/each}}
+      </ul>
+    </div>
+  </section>
+  <section id="forecast">
+    <ul class="forecast-list">
+      {{#each forecast in dailyConditions}}
+        <li>
+          <ul>
+            <li>{{forecast.dayName}}</li>
+            <li><img {{bind-attr src=forecast.iconPath}}></li>
+            <li>{{forecast.displayTemperatureMax}}</li>
+            <li>{{forecast.displayTemperatureMin}}</li>
+          </ul>
+        </li>
+      {{/each}}
+    </ul>
+  </section>
+  <section id="today-details">
+    <p class="today-summary">Today: {{summary}}</p>
+    <ul class="today-details-list">
+      <li>
+        <ul>
+          <li>Sunrise:</li>
+          <li>{{dailyConditions.0.displaySunriseTime}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Sunset:</li>
+          <li>{{{dailyConditions.0.displaySunsetTime}}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>{{hourlyConditions.0.chanceOfPrecipitationTypeString}}</li>
+          <li>{{hourlyConditions.0.displayChanceOfPrecipitation}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Humidity:</li>
+          <li>{{hourlyConditions.0.displayHumidity}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Wind:</li>
+          <li>{{hourlyConditions.0.displayWind}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Feels like:</li>
+          <li>{{hourlyConditions.0.displayFeelsLikeTemperature}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Precipitation:</li>
+          <li>{{hourlyConditions.0.displayPrecipitation}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Pressure:</li>
+          <li>{{hourlyConditions.0.displayPressure}}</li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li></li>
+          <li></li>
+        </ul>
+      </li>
+      <li>
+        <ul>
+          <li>Visibility:</li>
+          <li>{{hourlyConditions.0.displayVisibility}}</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<nav {{bind-attr class="isNight isCloudy isDay isCurrentLocation"}}>
+
+  {{#if shouldShowNextPreviousNav}}
+    <div class="next-prev-nav">
+      <div {{bind-attr class=":prev-button canGoToPreviousCity"}}>
+        <a {{action 'goToPreviousCity'}}>◀</a>
+      </div>
+      <div class="indicator-dots">
+        {{#each dot in cityDots}}
+          <span {{bind-attr class=":dot dot.isCurrent"}}>•</span>
+        {{/each}}
+      </div>
+      <div {{bind-attr class=":next-button canGoToNextCity"}}>
+        <a {{action 'goToNextCity'}}>▶</a>
+      </div>
+    </div>
+    {{/if}}
+    <div class="list-button">
+      {{#link-to 'index'}}
+        ☰
+      {{/link-to}}
+    </div>
+    <div {{bind-attr class=":celsius-or-fahrenheit isFahrenheit isCelsius"}}>
+      <a {{action 'toggleUnits'}}>
+        <span class="celsius">˚C</span> ⁄ <span class="fahrenheit">˚F</span>
+      </a>
+    </div>
+</nav>
+
+
+
